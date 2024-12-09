@@ -1,7 +1,7 @@
-H5P.Column = (function (EventDispatcher) {
+H5P.RowColumn = (function (EventDispatcher) {
 
   /**
-   * Column Constructor
+   * RowColumn Constructor
    *
    * @class
    * @param {Object} params Describes task behavior
@@ -9,7 +9,7 @@ H5P.Column = (function (EventDispatcher) {
    * @param {Object} data User specific data to adapt behavior
    */
   function Column(params, id, data) {
-    /** @alias H5P.Column# */
+    /** @alias H5P.RowColumn# */
     var self = this;
 
     // We support events by extending this class
