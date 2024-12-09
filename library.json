@@ -1,13 +1,13 @@
 {
-  "machineName": "H5P.Column",
+  "machineName": "H5P.RowColumn",
   "title": "Column",
-  "description": "Content holder displaying content in a column.",
+  "description": "Content holder displaying content in a column within a row.",
   "contentType": "instructional",
   "license": "MIT",
   "author": "Joubel",
-  "majorVersion": 1,
-  "minorVersion": 18,
-  "patchVersion": 1,
+  "majorVersion": 0,
+  "minorVersion": 0,
+  "patchVersion": 0,
   "runnable": 1,
   "fullscreen": 0,
   "embedTypes": [
