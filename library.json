@@ -5,10 +5,10 @@
   "contentType": "instructional",
   "license": "MIT",
   "author": "Joubel",
-  "majorVersion": 0,
+  "majorVersion": 1,
   "minorVersion": 0,
   "patchVersion": 0,
-  "runnable": 1,
+  "runnable": 0,
   "fullscreen": 0,
   "embedTypes": [
     "iframe"
