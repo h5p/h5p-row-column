@@ -35,72 +35,8 @@ H5P.RowColumn = (function (EventDispatcher) {
     var instances = [];
     var instanceContainers = [];
 
-    // Number of tasks among instances
-    var numTasks = 0;
-
-    // Number of tasks that has been completed
-    var numTasksCompleted = 0;
-
-    // Keep track of result for each task
-    var tasksResultEvent = [];
-
     // Keep track of last content's margin state
     var previousHasMargin;
-
-    /**
-     * Calculate score and trigger completed event.
-     *
-     * @private
-     */
-    var completed = function () {
-      // Sum all scores
-      var raw = 0;
-      var max = 0;
-
-      for (var i = 0; i < tasksResultEvent.length; i++) {
-        var event = tasksResultEvent[i];
-        raw += event.getScore();
-        max += event.getMaxScore();
-      }
-
-      self.triggerXAPIScored(raw, max, 'completed');
-    };
-
-    /**
-     * Generates an event handler for the given task index.
-     *
-     * @private
-     * @param {number} taskIndex
-     * @return {function} xAPI event handler
-     */
-    var trackScoring = function (taskIndex) {
-      return function (event) {
-        if (event.getScore() === null) {
-          return; // Skip, not relevant
-        }
-
-        if (tasksResultEvent[taskIndex] === undefined) {
-          // Update number of completed tasks
-          numTasksCompleted++;
-        }
-
-        // Keep track of latest event with result
-        tasksResultEvent[taskIndex] = event;
-
-        // Track progress
-        var progressed = self.createXAPIEventTemplate('progressed');
-        progressed.data.statement.object.definition.extensions['http://id.tincanapi.com/extension/ending-point'] = taskIndex + 1;
-        self.trigger(progressed);
-
-        // Check to see if we're done
-        if (numTasksCompleted === numTasks) {
-          // Run this after the current event is sent
-          setTimeout(function () {
-            completed(); // Done
-          }, 0);
-        }
-      };
-    };
 
     /**
      * Creates a new ontent instance from the given content parameters and
@@ -127,14 +63,6 @@ H5P.RowColumn = (function (EventDispatcher) {
 
       // Bubble resize events
       bubbleUp(instance, 'resize', self);
-
-      // Check if instance is a task
-      if (Column.isTask(instance)) {
-        // Tasks requires completion
-
-        instance.on('xAPI', trackScoring(numTasks));
-        numTasks++;
-      }
 
       if (library === 'H5P.Image') {
         // Resize when images are loaded
@@ -545,50 +473,6 @@ H5P.RowColumn = (function (EventDispatcher) {
       // Reset
       target.bubblingUpwards = false;
     });
-  }
-
-  /**
-   * Definition of which content types are tasks
-   */
-  var isTasks = [
-    'H5P.ImageHotspotQuestion',
-    'H5P.Blanks',
-    'H5P.Essay',
-    'H5P.SingleChoiceSet',
-    'H5P.MultiChoice',
-    'H5P.TrueFalse',
-    'H5P.DragQuestion',
-    'H5P.Summary',
-    'H5P.DragText',
-    'H5P.MarkTheWords',
-    'H5P.MemoryGame',
-    'H5P.QuestionSet',
-    'H5P.InteractiveVideo',
-    'H5P.CoursePresentation',
-    'H5P.DocumentationTool',
-    'H5P.MultiMediaChoice'
-  ];
-
-  /**
-   * Check if the given content instance is a task (will give a score)
-   *
-   * @param {Object} instance
-   * @return {boolean}
-   */
-  Column.isTask = function (instance) {
-    if (instance.isTask !== undefined) {
-      return instance.isTask; // Content will determine self if it's a task
-    }
-
-    // Go through the valid task names
-    for (var i = 0; i < isTasks.length; i++) {
-      // Check against library info. (instanceof is broken in H5P.newRunnable)
-      if (instance.libraryInfo.machineName === isTasks[i]) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   /**
