@@ -17,9 +17,6 @@ H5P.RowColumn = (function (EventDispatcher) {
 
     // Add defaults
     params = params || {};
-    if (params.useSeparators === undefined) {
-      params.useSeparators = true;
-    }
 
     // Fallback if column is empty
     if (params.content === undefined) {
@@ -119,12 +116,11 @@ H5P.RowColumn = (function (EventDispatcher) {
 
         // In case the author has created an element without selecting any
         // library
-        if (content.content === undefined) {
+        if (content.library === undefined) {
           continue;
         }
 
-        // Add content
-        addRunnable(content.content, grabContentData(i));
+        addRunnable(content, grabContentData(i));
       }
     };
 
