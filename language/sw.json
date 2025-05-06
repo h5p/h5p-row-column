@@ -7,20 +7,6 @@
         "fields": [
           {
             "label": "Maudhui"
-          },
-          {
-            "label": "Tenganisha maudhui kwa rula mlalo",
-            "options": [
-              {
-                "label": "Otomatiki (chaguo-msingi)"
-              },
-              {
-                "label": "Kamwe usitumie rula hapo juu"
-              },
-              {
-                "label": "Kila wakati tumia rula hapo juu"
-              }
-            ]
           }
         ]
       }

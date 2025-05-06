@@ -7,20 +7,6 @@
         "fields": [
           {
             "label": "Content"
-          },
-          {
-            "label": "Separate content with a horizontal ruler",
-            "options": [
-              {
-                "label": "Automatic (default)"
-              },
-              {
-                "label": "Never use ruler above"
-              },
-              {
-                "label": "Always use ruler above"
-              }
-            ]
           }
         ]
       }

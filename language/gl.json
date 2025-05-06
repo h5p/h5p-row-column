@@ -7,20 +7,6 @@
         "fields": [
           {
             "label": "Contido"
-          },
-          {
-            "label": "Separar o contido cunha regra horizontal",
-            "options": [
-              {
-                "label": "Automático (por defecto)"
-              },
-              {
-                "label": "Nunca usar regra enriba"
-              },
-              {
-                "label": "Sempre usar regla enriba"
-              }
-            ]
           }
         ]
       }

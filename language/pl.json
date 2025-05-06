@@ -7,20 +7,6 @@
         "fields": [
           {
             "label": "Zawartość"
-          },
-          {
-            "label": "Oddziel zawartość poziomą linijką",
-            "options": [
-              {
-                "label": "Automatyczne (domyślnie)"
-              },
-              {
-                "label": "Nigdy nie używaj linijki powyżej"
-              },
-              {
-                "label": "Zawsze używaj linijki powyżej"
-              }
-            ]
           }
         ]
       }

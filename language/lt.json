@@ -7,20 +7,6 @@
         "fields": [
           {
             "label": "Turinys"
-          },
-          {
-            "label": "Atskirti turinį horizontalia liniuote",
-            "options": [
-              {
-                "label": "Automatinis (numatytasis)"
-              },
-              {
-                "label": "Niekada nenaudoti liniuotės aukščiau"
-              },
-              {
-                "label": "Visada naudoti liniuotę aukščiau"
-              }
-            ]
           }
         ]
       }

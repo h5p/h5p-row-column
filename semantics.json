@@ -51,27 +51,6 @@
             "H5P.Video 1.6",
             "H5P.MultiMediaChoice 0.3"
           ]
-        },
-        {
-          "name": "useSeparator",
-          "type": "select",
-          "importance": "low",
-          "label": "Separate content with a horizontal ruler",
-          "default": "auto",
-          "options": [
-            {
-              "value": "auto",
-              "label": "Automatic (default)"
-            },
-            {
-              "value": "disabled",
-              "label": "Never use ruler above"
-            },
-            {
-              "value": "enabled",
-              "label": "Always use ruler above"
-            }
-          ]
         }
       ]
     }

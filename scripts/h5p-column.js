@@ -17,9 +17,6 @@ H5P.RowColumn = (function (EventDispatcher) {
 
     // Add defaults
     params = params || {};
-    if (params.useSeparators === undefined) {
-      params.useSeparators = true;
-    }
 
     // Fallback if column is empty
     if (params.content === undefined) {
@@ -104,84 +101,6 @@ H5P.RowColumn = (function (EventDispatcher) {
     };
 
     /**
-     * Adds separator before the next content.
-     *
-     * @private
-     * @param {string} libraryName Name of the next content type
-     * @param {string} useSeparator
-     */
-    var addSeparator = function (libraryName, useSeparator) {
-      // Determine separator spacing
-      var thisHasMargin = (hasMargins.indexOf(libraryName) !== -1);
-
-      // Only add if previous content exists
-      if (previousHasMargin !== undefined) {
-
-        // Create separator element
-        var separator = document.createElement('div');
-        //separator.classList.add('h5p-column-ruler');
-
-        // If no margins, check for top margin only
-        if (!thisHasMargin && (hasTopMargins.indexOf(libraryName) === -1)) {
-          if (!previousHasMargin) {
-            // None of them have margin
-
-            // Only add separator if forced
-            if (useSeparator === 'enabled') {
-              // Add ruler
-              separator.classList.add('h5p-column-ruler');
-
-              // Add space both before and after the ruler
-              separator.classList.add('h5p-column-space-before-n-after');
-            }
-            else {
-              // Default is to separte using a single space, no ruler
-              separator.classList.add('h5p-column-space-before');
-            }
-          }
-          else {
-            // We don't have any margin but the previous content does
-
-            // Only add separator if forced
-            if (useSeparator === 'enabled') {
-              // Add ruler
-              separator.classList.add('h5p-column-ruler');
-
-              // Add space after the ruler
-              separator.classList.add('h5p-column-space-after');
-            }
-          }
-        }
-        else if (!previousHasMargin) {
-          // We have margin but not the previous content doesn't
-
-          // Only add separator if forced
-          if (useSeparator === 'enabled') {
-            // Add ruler
-            separator.classList.add('h5p-column-ruler');
-
-            // Add space after the ruler
-            separator.classList.add('h5p-column-space-before');
-          }
-        }
-        else {
-          // Both already have margin
-
-          if (useSeparator !== 'disabled') {
-            // Default is to add ruler unless its disabled
-            separator.classList.add('h5p-column-ruler');
-          }
-        }
-
-        // Insert into DOM
-        wrapper.appendChild(separator);
-      }
-
-      // Keep track of spacing for next separator
-      previousHasMargin = thisHasMargin || (hasBottomMargins.indexOf(libraryName) !== -1);
-    };
-
-    /**
      * Creates a wrapper and the column content the first time the column
      * is attached to the DOM.
      *
@@ -197,18 +116,11 @@ H5P.RowColumn = (function (EventDispatcher) {
 
         // In case the author has created an element without selecting any
         // library
-        if (content.content === undefined) {
+        if (content.library === undefined) {
           continue;
         }
 
-        if (params.useSeparators) { // (check for global override)
-
-          // Add separator between contents
-          addSeparator(content.content.library.split(' ')[0], content.useSeparator);
-        }
-
-        // Add content
-        addRunnable(content.content, grabContentData(i));
+        addRunnable(content, grabContentData(i));
       }
     };
 
@@ -474,48 +386,6 @@ H5P.RowColumn = (function (EventDispatcher) {
       target.bubblingUpwards = false;
     });
   }
-
-  /**
-   * Definition of which content type have margins
-   */
-  var hasMargins = [
-    'H5P.AdvancedText',
-    'H5P.AudioRecorder',
-    'H5P.Essay',
-    'H5P.Link',
-    'H5P.Accordion',
-    'H5P.Table',
-    'H5P.GuessTheAnswer',
-    'H5P.Blanks',
-    'H5P.MultiChoice',
-    'H5P.TrueFalse',
-    'H5P.DragQuestion',
-    'H5P.Summary',
-    'H5P.DragText',
-    'H5P.MarkTheWords',
-    'H5P.ImageHotspotQuestion',
-    'H5P.MemoryGame',
-    'H5P.Dialogcards',
-    'H5P.QuestionSet',
-    'H5P.DocumentationTool'
-  ];
-
-  /**
-   * Definition of which content type have top margins
-   */
-  var hasTopMargins = [
-    'H5P.SingleChoiceSet'
-  ];
-
-  /**
-   * Definition of which content type have bottom margins
-   */
-  var hasBottomMargins = [
-    'H5P.CoursePresentation',
-    'H5P.Dialogcards',
-    'H5P.GuessTheAnswer',
-    'H5P.ImageSlider'
-  ];
 
   /**
    * Remove custom fullscreen buttons from sub content.
